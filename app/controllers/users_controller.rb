@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  #before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:show, :update, :destroy]
 
   def index
     users = User.all
@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @users, status: 200
+    render json: @user, status: 200
   end
 
   def create
@@ -31,22 +31,21 @@ class UsersController < ApplicationController
     if @user.destroy
       render json: @user.errors, status: :unprocessable_entity
   end
+end
 
-  def posts_index
-    user = User.find(params[:user_id])
-    user_posts = user.posts
-    render json: user_posts, status: :ok
-  end
+ # def posts_index
+ #   user = User.find(params[:user_id])
+ #   user_posts = user.posts
+ #   render json: user_posts, status: :ok
+  #end
 
   private
 
-  #def set_user
-  #  @user = User.find(params[:id])
-  #end
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
-    # TODO password? admin?
     params.require[:user].permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
 end
-end 
