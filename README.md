@@ -9,7 +9,7 @@
 #3.Describe the setup instructions to start the project.
 
 a. Ubuntu terminal
-b. ran rails new wheelchair_exchange_3_api --api -T
+b. ran rails new wheelchair_exchange_4_api --api -T
 c. opened in VSCode
 d. uncommented or added to Gemfile
 e. opened VSCode terminal

@@ -1,0 +1,23 @@
+databases:
+    - name: wheelchair-exchange-classname
+      databaseName: wheelchair-exchange-classname
+      user: wheelchair-exchange-classname
+      plan: free
+
+services:
+    - type: web
+      name: wheelchair-exchange-classname
+      runtime: ruby
+      plan: free
+      buildCommand: './bin/render-build.sh'
+      # preDeployCommand: "./bin/rails db:migrate" # preDeployCommand only available on paid instance types
+      startCommand: './bin/rails server'
+      envVars:
+          - key: DATABASE_URL
+            fromDatabase:
+                name: wheelchair-exchange-classname
+                property: connectionString
+          - key: RAILS_MASTER_KEY
+            sync: false
+          - key: WEB_CONCURRENCY
+            value: 2 # sensible default
