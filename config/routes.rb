@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get 'posts', to: 'users#posts_index'
     end
   end
+  
   # localhost:3000/users
   #get '/users', to: 'users#index'
 
