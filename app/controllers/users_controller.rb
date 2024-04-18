@@ -17,7 +17,8 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
-      render json: @user, status: :created, location: @users
+      render json: UserBlueprint.render(user, view: :normal), status: :created
+      #render json: @user, status: :created, location: @users
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -39,12 +40,12 @@ class UsersController < ApplicationController
     end
       render json: @user.errors, status: :unprocessable_entity
   end
-
-#def posts_index
-#   user = User.find(params[:user_id])
-#   user_posts = user.posts
-#   render json: user_posts, status: :ok
-#end
+# localhost:3000/users/1/posts
+def posts_index
+   user = User.find(params[:user_id])
+   user_posts = user.posts
+   render json: user_posts, status: :ok
+end
 
   private
 
@@ -52,7 +53,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def user_params
+  def user_params #take out reqire user?
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
   end
 end 

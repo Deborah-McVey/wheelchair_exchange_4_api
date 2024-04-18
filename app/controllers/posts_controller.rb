@@ -18,7 +18,8 @@ class PostsController < ApplicationController
    def create
      @post = Post.create(post_params)
      if @post.save
-       render json: @post, status: :created, location: @posts
+      render json: PostBlueprint.render(post, view: :normal), status: :created
+       #render json: @post, status: :created, location: @posts
      else
        render json: @post.errors, status: :unprocessable_entity
      end
@@ -40,12 +41,12 @@ class PostsController < ApplicationController
      end
        render json: @post.errors, status: :unprocessable_entity
    end
-
- # def comments_index
-#    post = Post.find(params[:user_id])
- #   post_comments = post.comments
- #   render json: post_comments, status: :ok
- #end
+# localhost:3000/users/1/posts/1/comments
+def comments_index
+   post = Post.find(params[:user_id])
+   post_comments = post.comments
+   render json: post_comments, status: :ok
+end
    
   private
  
@@ -53,7 +54,7 @@ class PostsController < ApplicationController
      @post = Post.find(params[:id])
    end
  
-   def post_params
+   def post_params #remove require post?
      params.require(:post).permit(:photo, :description, :location, :status, :user_id)
    end
  end

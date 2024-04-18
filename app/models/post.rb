@@ -7,4 +7,6 @@ class Post < ApplicationRecord
   validates :description, presence: true, uniqueness: true, length: { minimum: 5, maximum: 1000 }
   validates :location, presence: true, length: { minimum: 10, maximum: 50 }
   validates :status, presence: true
+
+  has_one_attached :cover_image
 end

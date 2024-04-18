@@ -27,9 +27,12 @@ Rails.application.routes.draw do
   # localhost:3000/users/1
   #delete '/users/:id', to: 'users#destroy'
 
+   # localhost:3000/users
+  #delete '/users/:id', to: 'users#destroy'
+
   #resources :users
 
   # localhost:3000/users/1/posts
   # get '/users/:id/posts', to: 'users#posts_index'
   
-  
+  # localhost:3000/posts?description=[keyword]
