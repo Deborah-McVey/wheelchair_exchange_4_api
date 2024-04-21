@@ -13,18 +13,42 @@ class UsersController < ApplicationController
     render json: @user, status: :ok
   end
 
-  # POST users
-  def create
-    @user = User.create(user_params)
-    if @user.save
-      render json: UserBlueprint.render(user, view: :normal), status: :created
+# POST users
+  #def create
+    #@user = User.create(user_params)
+    #if @user.save
+      #render json: UserBlueprint.render(user, view: :normal), status: :created
       #render json: @user, status: :created, location: @users
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
+    #else
+      #render json: @user.errors, status: :unprocessable_entity
+    #end
+  #end
+  #def create
+  #  user = UserService.create_user(user_params)
+  #  if user.valid?
+  #    render json: user, status: :created
+  #  else
+  #    render json: user, status: :unprocessable_entity
+  #  end
+  #end
+  #def create
+  #  result = UserService::Base.create_user(user_params)
+  #  if result.success?
+  #    render json: UserBlueprint.render(result.payload, view: #:normal), status: :created
+  #  else
+  #    render json: result.errors, status: #:unprocessable_entity
+  #  end
+ # end
+ def create
+  result = UserService::Base.create_user(user_params)
+  if result.success?
+    render_success(payload: UserBlueprint.render_as_hash(result.payload, view: :normal), status: :created)
+  else
+    render_error(errors: result.errors, status: :unprocessable_entity)
   end
+end
 
-  # PATCH/PUT /users/1
+# PATCH/PUT /users/1
   def update
     if @user.update(user_params)
       render json: @user, status: :ok
